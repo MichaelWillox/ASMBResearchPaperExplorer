@@ -11,6 +11,13 @@ flat_data <- nested_data %>%
   dplyr::select(-Description)
   # mutate(Description = str_trunc(Description, width = 20, side = "right"))
 
+# Workaround for Chromium Issue 468227
+downloadButton <- function(...) {
+ tag <- shiny::downloadButton(...)
+ tag$attribs$download <- NULL
+ tag
+}
+
 # Define the UI
 ui <- fluidPage(
   titlePanel("ASMB Research Paper Explorer"),
