@@ -2,6 +2,13 @@ library(shiny)
 library(tidyverse)
 library(DT)  # For interactive tables
 
+# Workaround for Chromium Issue 468227
+downloadButton <- function(...) {
+ tag <- shiny::downloadButton(...)
+ tag$attribs$download <- NULL
+ tag
+}
+
 # Load the nested data
 nested_data <- readRDS("nested_data.RDS")
 
@@ -10,13 +17,6 @@ flat_data <- nested_data %>%
   unnest(cols = c(data)) %>% 
   dplyr::select(-Description)
   # mutate(Description = str_trunc(Description, width = 20, side = "right"))
-
-# Workaround for Chromium Issue 468227
-downloadButton <- function(...) {
- tag <- shiny::downloadButton(...)
- tag$attribs$download <- NULL
- tag
-}
 
 # Define the UI
 ui <- fluidPage(
@@ -112,13 +112,15 @@ server <- function(input, output, session) {
   # Allow the user to download the filtered data as a CSV
   output$download_data <- downloadHandler(
     filename = function() {
-      paste("filtered_data_", Sys.Date(), ".csv", sep = "")
+      paste("ASMB_Papers_", Sys.Date(), ".csv", sep = "")
     },
     content = function(file) {
       write.csv(filtered_data(), file, row.names = FALSE)
-    }
+    },
+    contentType = "text/csv"
   )
 }
+
 
 # Run the app
 shinyApp(ui, server)
