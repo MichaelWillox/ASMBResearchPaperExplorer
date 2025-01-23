@@ -18,6 +18,7 @@ flat_data <- nested_data %>%
   dplyr::select(-Description)
   # mutate(Description = str_trunc(Description, width = 20, side = "right"))
 
+
 # Define the UI
 ui <- fluidPage(
   titlePanel("ASMB Research Paper Explorer"),
@@ -87,27 +88,16 @@ server <- function(input, output, session) {
   
   # Render the filtered table with expandable rows
   output$data_table <- renderDT({
-    datatable(
-      filtered_data()[, input$selected_columns, drop = FALSE],  # Subset data by selected columns
-      options = list(
-        pageLength = 10,                # Number of rows per page
-        lengthMenu = c(10, 25, 50, 100),  # Row selection options
-        autoWidth = TRUE,               # Automatically adjust column width
-        dom = 'Bfrtip',                 # DOM layout for buttons
-        buttons = c('csv', 'excel'),    # Export buttons
-        server = TRUE,                  # Enable server-side processing
-        rowCallback = JS(
-          "function(row, data) {",
-          "  if (data[3].length > 100) {",  # Assuming Description is the 4th column
-          "    $('td:eq(3)', row).html(data[3].substring(0, 100) + '...');",
-          "  }",
-          "}"
-        )
-      ),
-      rownames = FALSE,
-      escape = FALSE  # Allow HTML for expandable rows
-    )
-  }, server = FALSE)
+   datatable(
+    filtered_data()[, input$selected_columns, drop = FALSE],  # Subset data by selected columns
+    options = list(
+     pageLength = 10,           # Number of rows per page
+     lengthMenu = c(10, 25, 50), # Row selection options
+     autoWidth = TRUE           # Automatically adjust column width
+    ),
+    rownames = FALSE            # Hide row names
+   )
+  })
   
   # Allow the user to download the filtered data as a CSV
   output$download_data <- downloadHandler(
@@ -120,7 +110,6 @@ server <- function(input, output, session) {
     contentType = "text/csv"
   )
 }
-
 
 # Run the app
 shinyApp(ui, server)
