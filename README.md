@@ -1,6 +1,6 @@
 # ASMB Research Paper Explorer
 
-The **ASMB Research Paper Explorer** is a Shiny application designed to make exploring research papers from the ASMB collection more interactive and user-friendly. You can access the app at the following URL:
+The **ASMB Research Paper Explorer** is a Shiny application designed to make exploring research papers from the ASMB collection more interactive and user-friendly. You can access the app at the following URL: 
 
 [ASMB Research Paper Explorer](https://michaelwillox.github.io/ASMBResearchPaperExplorer/)
 
