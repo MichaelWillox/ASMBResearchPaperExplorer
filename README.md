@@ -16,7 +16,4 @@ This app allows users to:
   - By Release Date
   - By Title
 
-- **Search and Explore:**
-  - View an interactive table of filtered research papers.
-  - Use expandable rows to see more information about each paper.
 
