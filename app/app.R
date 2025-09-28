@@ -3,7 +3,7 @@ library(dplyr)
 library(DT)
 
 # Load your prepared dataset
-articles_long <- readRDS("esr_articles_shiny.rds")
+articles_long <- readRDS("asmb_articles.rds")
 
 ui <- fluidPage(
  titlePanel("ASMB Research Paper Explorer"),
