@@ -2,4 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
+*.Rproj
+*.xlsx
+ASMB_Articles.R
+Prep_ESR_shiny.R
 
